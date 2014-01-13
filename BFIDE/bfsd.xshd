@@ -1,0 +1,29 @@
+﻿<SyntaxDefinition name="CASM" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <RuleSet ignoreCase="true" >
+    <Keywords foreground="Blue">
+      <Word>&gt;</Word>
+      <Word>&lt;</Word>
+    </Keywords>
+
+    <Keywords foreground="Magenta">
+      <Word>+</Word>
+      <Word>-</Word>
+    </Keywords>
+
+    <Keywords foreground="Black">
+      <Word>.</Word>
+      <Word>,</Word>
+    </Keywords>
+
+    <Keywords foreground="Purple">
+      <Word>]</Word>
+      <Word>[</Word>
+    </Keywords>
+
+    <Keywords foreground="Red">
+      <Word>#</Word>
+    </Keywords>
+    
+  </RuleSet>
+</SyntaxDefinition>
+

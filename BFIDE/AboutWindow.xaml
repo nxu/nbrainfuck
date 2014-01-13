@@ -1,0 +1,30 @@
+﻿<Window x:Class="BFIDE.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About Brainfuck Developer" Height="250" Width="500" WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow" ResizeMode="NoResize" Icon="img/bficon.png">
+    <Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Image Grid.Row="0" Grid.RowSpan="2" Grid.Column ="0" Source="img/bficon.png" Margin="0 0 5 0"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" FontFamily="Segoe UI" FontSize="26">nBrainfuck - Brainfuck Developer</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="1" FontFamily="Segoe UI" FontSize="14" Name="TBXVersion">-Version-</TextBlock>
+            
+            <TextBox Grid.Row="2" Grid.ColumnSpan="2" FontFamily="SegoeUI" FontSize="12" TextWrapping="Wrap" TextAlignment="Justify" IsReadOnly="True"
+                     Name="TBXInfo">
+            </TextBox>
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Width="50" HorizontalAlignment="Right" Content="OK" Click="Button_Click" Margin="0 5 0 0"/>
+        </Grid>
+        
+    </Grid>
+</Window>
