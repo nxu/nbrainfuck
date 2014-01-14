@@ -1,10 +1,21 @@
-﻿namespace BrainfuckInterpreter
+﻿// <copyright file="BinaryInputManager.cs" company="nXu.hu">
+//     Copyright nXu. Licensed under the MIT License.
+// </copyright>
+// <author>nXu</author>
+
+namespace BrainfuckInterpreter
 {
     using System;
     using System.IO;
 
+    /// <summary>
+    /// A binary input manager class.
+    /// </summary>
     public class BinaryInputManager : InputManager, IDisposable
     {
+        /// <summary>
+        /// The source of the input.
+        /// </summary>
         private Stream source;
 
         /// <summary>
@@ -48,7 +59,9 @@
         public void Dispose()
         {
             if (this.source != null)
+            {
                 this.source.Dispose();
+            }
         }
     }
 }

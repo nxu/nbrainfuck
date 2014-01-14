@@ -1,8 +1,16 @@
-﻿namespace BrainfuckInterpreter
+﻿// <copyright file="TextInputManager.cs" company="nXu.hu">
+//     Copyright nXu. Licensed under the MIT License.
+// </copyright>
+// <author>nXu</author>
+
+namespace BrainfuckInterpreter
 {
     using System;
     using System.IO;
 
+    /// <summary>
+    /// A text input manager class.
+    /// </summary>
     public class TextInputManager : InputManager, IDisposable
     {
         /// <summary>
@@ -68,9 +76,14 @@
         public void Dispose()
         {
             if (this.reader != null)
+            {
                 this.reader.Dispose();
+            }
+
             if (this.streamToRead != null)
+            {
                 this.streamToRead.Dispose();
+            }
         }
     }
 }

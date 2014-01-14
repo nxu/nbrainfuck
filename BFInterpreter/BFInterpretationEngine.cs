@@ -1,8 +1,14 @@
-﻿using System.Collections.Generic;
-using System;
-using System.ComponentModel;
+﻿// <copyright file="BFInterpretationEngine.cs" company="nXu.hu">
+//     Copyright nXu. Licensed under the MIT License.
+// </copyright>
+// <author>nXu</author>
+
 namespace BrainfuckInterpreter
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+
     /// <summary>
     /// A brainfuck interpretation engine.
     /// </summary>
@@ -50,10 +56,11 @@ namespace BrainfuckInterpreter
         protected BackgroundWorker asyncExecutionWorker;
 
         /// <summary>
-        /// A <c>bool</c> value indicating whether the instruction
+        /// Gets or sets a value indicating whether the instruction
         /// pointer has been manually set by the last operation.
         /// </summary>
         protected bool ipManuallySet;
+
         #endregion
 
         #region -- Constructors --------------------------------------------
@@ -63,7 +70,7 @@ namespace BrainfuckInterpreter
         /// <param name="memorySize">Count of memory cells.</param>
         /// <param name="inputFunction">Function to call at input.</param>
         /// <param name="outputAction">Action to do at output.</param>
-        public BFInterpretationEngine(int memorySize, Func<int> inputFunction, Action<int> outputAction)
+        protected BFInterpretationEngine(int memorySize, Func<int> inputFunction, Action<int> outputAction)
         {
             // IP set automatically
             this.ipManuallySet = false;
@@ -71,7 +78,9 @@ namespace BrainfuckInterpreter
             // Initialize memory
             this.applicationMemory = new int[memorySize];
             for (int i = 0; i < memorySize; ++i)
+            {
                 this.applicationMemory[i] = 0;
+            }
 
             // Initialize pointers
             this.instructionPointer = 0;
@@ -107,6 +116,7 @@ namespace BrainfuckInterpreter
             {
                 return this.applicationMemory;
             }
+
             private set
             {
                 this.applicationMemory = value;
@@ -122,6 +132,7 @@ namespace BrainfuckInterpreter
             {
                 return this.instructionPointer;
             }
+
             private set
             {
                 this.instructionPointer = value;
@@ -137,6 +148,7 @@ namespace BrainfuckInterpreter
             {
                 return this.thePointer;
             }
+
             private set
             {
                 this.thePointer = value;
@@ -160,29 +172,15 @@ namespace BrainfuckInterpreter
         /// Checks a brainfuck code for compile time errors.
         /// </summary>
         /// <param name="codebase">Brainfuck code to check.</param>
+        /// <param name="memoryRange">The memory range.</param>
         /// <returns>Check result.</returns>
         public static JITExecutionResult CheckCode(string codebase, int memoryRange)
         {
-            int currentPointer = 0;
             int currentOpenBrackets = 0;
-            for (int i = 0; i < codebase.Length; ++i)
+            foreach (char t in codebase)
             {
-                switch (codebase[i])
+                switch (t)
                 {
-                    case '>':
-                        if (++currentPointer >= memoryRange)
-                        {
-                            return JITExecutionResult.CompileError_PointerOutOfMemoryRange;
-                        }
-
-                        break;
-                    case '<':
-                        if (--currentPointer < 0)
-                        {
-                            return JITExecutionResult.CompileError_PointerNegative;
-                        }
-
-                        break;
                     case '[':
                         currentOpenBrackets++;
                         break;
@@ -200,10 +198,8 @@ namespace BrainfuckInterpreter
             {
                 return JITExecutionResult.Succesful;
             }
-            else
-            {
-                return JITExecutionResult.CompileError_OpenLoopLeft;
-            }
+
+            return JITExecutionResult.CompileError_OpenLoopLeft;
         }
         #endregion
 
@@ -257,7 +253,7 @@ namespace BrainfuckInterpreter
         }
 
         /// <summary>
-        /// Instruction: ..
+        /// Instruction: dot.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Output action is null.</exception>
         private void Instruction_Output()
@@ -302,7 +298,7 @@ namespace BrainfuckInterpreter
         }
 
         /// <summary>
-        /// Adds or substracts a value to/from the currrent memory cell.
+        /// Adds or subtracts a value to/from the current memory cell.
         /// </summary>
         /// <param name="amount">Amount to add.</param>
         private void Helper_Instruction_AddOrSub(int amount)

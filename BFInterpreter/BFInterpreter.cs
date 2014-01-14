@@ -1,8 +1,16 @@
-﻿namespace BrainfuckInterpreter
+﻿// <copyright file="BFInterpreter.cs" company="nXu.hu">
+//     Copyright nXu. Licensed under the MIT License.
+// </copyright>
+// <author>nXu</author>
+
+namespace BrainfuckInterpreter
 {
     using System;
     using System.ComponentModel;
 
+    /// <summary>
+    /// The implementation of the interpretation engine.
+    /// </summary>
     public class BFInterpreter : BFInterpretationEngine
     {
         #region -- Constructors ---------------------------------------------
@@ -14,20 +22,19 @@
         /// <param name="outputAction">Action to do at output.</param>
         public BFInterpreter(int memorySize, Func<int> inputFunction, Action<int> outputAction) 
             : base(memorySize, inputFunction, outputAction)
-        { }
+        { 
+        }
         #endregion
 
         #region -- Events and delegates -------------------------------------
         /// <summary>
-        /// Event handler for the AsyncExectutionFinished event.
+        /// Event handler for the AsyncExecutionFinished event.
         /// </summary>
-        /// <param name="finished">A <c>bool</c> value indicating whether
-        /// the execution was finished normally (<c>true</c>) or 
-        /// has been terminated (<c>false</c>).</param>
+        /// <param name="executionResult">The result o the execution.</param>
         public delegate void AsyncExecutionFinishedEventHandler(JITExecutionResult executionResult);
 
         /// <summary>
-        /// Event occuring when async execution finishes.
+        /// Event occurring when async execution finishes.
         /// </summary>
         public event AsyncExecutionFinishedEventHandler AsyncExecutionFinished;
         #endregion
@@ -38,20 +45,25 @@
         /// synchronous (blocking) way. Ignores breakpoints.
         /// </summary>
         /// <param name="codebase">Brainfuck code to parse.</param>
+        /// <returns>The result of the execution</returns>
         public JITExecutionResult Execute(string codebase)
         {
             JITExecutionResult r = BFInterpretationEngine.CheckCode(codebase, this.applicationMemory.Length);
 
             if (r != JITExecutionResult.Succesful)
+            {
                 return r;
+            }
 
             while (this.instructionPointer < codebase.Length || this.callStack.Count > 0)
             {
                 // For cleaner code, check worker cancellation here
                 // instead of the loop declaration
                 if (this.asyncExecutionWorker != null && this.asyncExecutionWorker.CancellationPending)
+                {
                     return JITExecutionResult.ExecutionCancelled;
-                
+                }
+
                 // Parse next char
                 char cur = codebase[instructionPointer];
                 Action what;
@@ -120,7 +132,9 @@
         {
             // Check if execution is in progress
             if (this.asyncExecutionWorker == null)
+            {
                 throw new InvalidOperationException("No execution in progress.");
+            }
 
             // Cancel execution
             this.asyncExecutionWorker.CancelAsync();
@@ -132,9 +146,7 @@
         /// Fires the AsyncExecutionFinished event and dereferences
         /// the background worker.
         /// </summary>
-        /// <param name="finished">A <c>bool</c> value indicating whether
-        /// the execution was finished normally (<c>true</c>) or 
-        /// has been terminated (<c>false</c>).</param>
+        /// <param name="result">The result of the execution.</param>
         private void OnAsyncExecutionFinished(JITExecutionResult result)
         {
             // Dispose and dereference background worker
@@ -143,7 +155,9 @@
 
             // Fire finished event
             if (this.AsyncExecutionFinished != null)
+            {
                 this.AsyncExecutionFinished(result);
+            }
         }
         #endregion
     }

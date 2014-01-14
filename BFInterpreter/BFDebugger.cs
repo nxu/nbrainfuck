@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// <copyright file="BFDebugger.cs" company="nXu.hu">
+//     Copyright nXu. Licensed under the MIT License.
+// </copyright>
+// <author>nXu</author>
 
 namespace BrainfuckInterpreter
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    /// <summary>
+    /// The debugger implementation of the interpretation engine.
+    /// </summary>
     public class BFDebugger : BFInterpretationEngine
     {
         /// <summary>
@@ -24,7 +32,9 @@ namespace BrainfuckInterpreter
         {
             // No code specified
             if (codebase == null || codebase.Length < 1)
+            {
                 throw new ArgumentNullException("Invalid code");
+            }
 
             // Set code base
             this.codebase = codebase;
@@ -66,7 +76,9 @@ namespace BrainfuckInterpreter
 
             // Check for end of code and get next valid command
             if (!this.GetNextValidCommand())
+            {
                 return JITExecutionResult.EndOfCodeReached;
+            }
 
             return JITExecutionResult.Succesful;
         }

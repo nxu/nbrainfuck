@@ -1,4 +1,9 @@
-﻿using System.Reflection;
+﻿// <copyright file="AssemblyInfo.cs" company="nXu.hu">
+//     Copyright nXu. Licensed under the MIT License.
+// </copyright>
+// <author>nXu</author>
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -10,7 +15,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("nXu")]
 [assembly: AssemblyProduct("BFInterpreter")]
-[assembly: AssemblyCopyright("Copyright © nXu 2012")]
+[assembly: AssemblyCopyright("Copyright © nXu 2012 - 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

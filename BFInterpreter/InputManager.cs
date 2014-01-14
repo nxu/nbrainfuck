@@ -1,8 +1,14 @@
-﻿using System;
+﻿// <copyright file="InputManager.cs" company="nXu.hu">
+//     Copyright nXu. Licensed under the MIT License.
+// </copyright>
+// <author>nXu</author>
+
 namespace BrainfuckInterpreter
 {
+    using System;
+
     /// <summary>
-    /// An interface defining methods for brainfuck input.
+    /// An abstract class defining methods for brainfuck input.
     /// </summary>
     public abstract class InputManager
     {
@@ -13,7 +19,7 @@ namespace BrainfuckInterpreter
         public abstract int Read();
 
         /// <summary>
-        /// Gets the Read() method as a Func object.
+        /// Gets the Read() method as a function object.
         /// </summary>
         /// <returns>A valid brainfuck input function.</returns>
         public virtual Func<int> GetInputFunction()
