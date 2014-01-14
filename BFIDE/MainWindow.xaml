@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:BFIDE"
         xmlns:avalon="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
-        Title="NXU Brainfuck Developer" Height="650" Width="850"
+        Title="Brainfuck IDE" Height="650" Width="850"
         Background="#35496B" Icon="img/bficon.png"
         WindowState="Maximized">
     <Window.Resources>
