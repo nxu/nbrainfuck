@@ -6,16 +6,22 @@ What's this?
 
 nbrainfuck is a collection of free and open source softwares. They are created to make coding in brainfuck language easier. They are written in C# and the .NET Framework 4 (or sometimes 4.5) has to be installed on the host computer.
 
+http://www.nxu.hu
+
 Components
 ----------
 * BFInterpreter
-... A simple code library for interpreting and debugging standard brainfuck code. 
+ 
+   A simple code library for interpreting and debugging standard brainfuck code. 
 * BFIDE
-... An Integrated Development Environment for coding in brainfuck language. Multiple input sources (binary / text file, direct text input), output window, character table. Debugger for easier programming: step-by-step debugging, breakpoints ('#' character) and a debug window that shows the instruction pointer, The Pointer and the values of each memory cell. Integrated brainloller support using nbrainloller (importing from and exporting to brainloller images).
+
+   An Integrated Development Environment for coding in brainfuck language. Multiple input sources (binary / text file, direct text input), syntax highlighting output window, character table. Debugger for easier programming: step-by-step debugging, breakpoints ('#' character) and a debug window that shows the instruction pointer, The Pointer and the values of each memory cell. The current command is also highlighted in the code editor. Integrated brainloller support using nbrainloller (importing from and exporting to brainloller images).
 * nbrainfuck 
-... A leightweigh brainfuck interpreter.
+
+   A leightweigh brainfuck interpreter.
 * nbrainloller 
-... A simple yet powerful brainfuck<->brainloller converter. Supports multiple image formats
+
+   A simple yet powerful brainfuck<->brainloller converter. Supports multiple image formats
 
 License
 ----------
