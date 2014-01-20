@@ -207,7 +207,7 @@
             <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="IOTab">
                 <TabItem Header="Output" Name="OutputTab"> 
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <TextBox Name="OutputBox" IsReadOnly="True" TextWrapping="Wrap"
+                        <TextBox Name="OutputBox" IsReadOnly="True" TextWrapping="Wrap" FontFamily="Courier New"
                                  ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                     </Grid>
