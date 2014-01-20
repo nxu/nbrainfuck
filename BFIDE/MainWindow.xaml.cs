@@ -60,7 +60,7 @@
             this.InitializeCharMap();
 
             this.memoryFrom = 0;
-            this.memoryTo = 5;
+            this.memoryTo = 20;
             this.currentFileName = string.Empty;
         }
 
@@ -100,7 +100,7 @@
                 return;
             
             // Initialize interpreter object
-            this.bfi = new BFInterpreter(memorySize, input, output);
+            this.bfi = new BFInterpreter(memorySize, input, output, this.BEditor.Text);
         }
 
         /// <summary>
@@ -380,34 +380,6 @@
         }
 
         /// <summary>
-        /// Handles the SelectionChanged event of the LBCallStack control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Controls.SelectionChangedEventArgs" /> instance containing the event data.</param>
-        private void LBCallStack_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            int index = (sender as ListBox).SelectedIndex;
-            if (index >= 0)
-            {
-                // Highlight corresponding action in the editor
-                int i = this.bfd.CallStack.ToArray()[index];
-                this.BEditor.Select(i, 1);
-                this.BEditor.CaretOffset = i;
-                this.BEditor.Focus();
-            }
-        }
-
-        /// <summary>
-        /// Handles the MouseDoubleClick event of the LBCallStack control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseButtonEventArgs" /> instance containing the event data.</param>
-        private void LBCallStack_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            this.LBCallStack_SelectionChanged(sender, null);
-        }
-
-        /// <summary>
         /// Handles the Executed event of the CmdNextStep control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -538,14 +510,6 @@
             this.TBInstructionPointer.Text = this.bfd.InstructionPointer.ToString();
             this.TBMemoryPointer.Text = this.bfd.ThePointer.ToString();
             
-            // Call stack
-            var calls = this.bfd.CallStack.ToArray();
-            this.LBCallStack.Items.Clear();
-            for (int i = 0; i < calls.Length; ++i)
-            {
-                this.LBCallStack.Items.Add(string.Format("{0}\t{1}", i, calls[i]));
-            }
-
             // Memory cells
             this.DisplayMemoryCells();
 
@@ -657,14 +621,6 @@
                 this.Title = "NXU Brainfuck Developer - Debugging";
                 this.DebuggerTab.IsEnabled = true;
                 this.RightTab.SelectedIndex = 1;
-
-                // Check for compile errors
-                JITExecutionResult r = BFInterpretationEngine.CheckCode(this.BEditor.Text, 30000);
-                if (r != JITExecutionResult.Succesful)
-                {
-                    MessageBox.Show("Compile error: " + r, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
 
                 // Output action
                 Action<int> output = this.GetOutputMethod();

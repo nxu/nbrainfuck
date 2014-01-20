@@ -154,9 +154,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" /> <!-- InstructionPointer -->
                                 <RowDefinition Height="auto" /> <!-- ThePointer -->
-                                <RowDefinition Height="2*" />   <!-- CallStack-->
                                 <RowDefinition Height="2" />    <!-- Splitter -->
-                                <RowDefinition Height="3*" />   <!-- Memory -->
+                                <RowDefinition Height="*" />   <!-- Memory -->
                                 <RowDefinition Height="auto" /> <!-- Memory cell selector -->
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
@@ -176,28 +175,18 @@
                             <TextBlock Grid.Row="1" Grid.Column="1" Name="TBMemoryPointer" Margin="5" 
                                        HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     
-                            <DockPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="5"
-                                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <Label DockPanel.Dock="Top">Call stack</Label>
-                                <ListBox DockPanel.Dock="Bottom" Name="LBCallStack" 
-                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                                         SelectionMode="Single"
-                                         SelectionChanged="LBCallStack_SelectionChanged"
-                                         MouseDoubleClick="LBCallStack_MouseDoubleClick"/>
-                            </DockPanel>
-                            
-                            <GridSplitter Grid.Row="3" Grid.ColumnSpan="2" 
+                            <GridSplitter Grid.Row="2" Grid.ColumnSpan="2" 
                                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                           ResizeDirection="Rows" Background="LightGray" />
                     
-                            <DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="5"
+                            <DockPanel Grid.Row="3" Grid.ColumnSpan="2" Margin="5"
                                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Label DockPanel.Dock="Top">Memory cells</Label>
                                 <ListBox DockPanel.Dock="Bottom" Name="LBMemoryCells"
                                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </DockPanel>
                             
-                            <DockPanel Grid.Row="5" Grid.ColumnSpan="2" Margin="5"
+                            <DockPanel Grid.Row="4" Grid.ColumnSpan="2" Margin="5"
                                        VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                                 <TextBox Name="TBXMemoryCells" Width="100" Height="auto" DockPanel.Dock="Left" />
                                 <Button DockPanel.Dock="Right" Width="50" HorizontalAlignment="Right" Click="MemoryDebugInfo_Click">OK</Button>

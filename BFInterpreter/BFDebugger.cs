@@ -28,7 +28,7 @@ namespace BrainfuckInterpreter
         /// <param name="outputAction">Action to do at output.</param>
         /// <param name="codebase">Brainfuck code to debug.</param>
         public BFDebugger(int memorySize, Func<int> inputFunction, Action<int> outputAction, string codebase)
-            : base(memorySize, inputFunction, outputAction)
+            : base(memorySize, inputFunction, outputAction, codebase)
         {
             // No code specified
             if (codebase == null || codebase.Length < 1)

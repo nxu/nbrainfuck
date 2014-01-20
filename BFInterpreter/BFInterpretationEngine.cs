@@ -8,6 +8,7 @@ namespace BrainfuckInterpreter
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Linq;
 
     /// <summary>
     /// A brainfuck interpretation engine.
@@ -29,11 +30,6 @@ namespace BrainfuckInterpreter
         /// The pointer (current memory index).
         /// </summary>
         protected int thePointer;
-
-        /// <summary>
-        /// The call stack.
-        /// </summary>
-        protected Stack<int> callStack;
 
         /// <summary>
         /// Action to do at output (.).
@@ -61,6 +57,11 @@ namespace BrainfuckInterpreter
         /// </summary>
         protected bool ipManuallySet;
 
+        /// <summary>
+        /// Gets or sets the positions of the loop begins and ends.
+        /// </summary>
+        protected Dictionary<int, int> loopPairs;
+
         #endregion
 
         #region -- Constructors --------------------------------------------
@@ -70,7 +71,8 @@ namespace BrainfuckInterpreter
         /// <param name="memorySize">Count of memory cells.</param>
         /// <param name="inputFunction">Function to call at input.</param>
         /// <param name="outputAction">Action to do at output.</param>
-        protected BFInterpretationEngine(int memorySize, Func<int> inputFunction, Action<int> outputAction)
+        /// <param name="codebase">Codebase to interpret, it will be only used to preprocess the code for the loops.</param>
+        protected BFInterpretationEngine(int memorySize, Func<int> inputFunction, Action<int> outputAction, string codebase)
         {
             // IP set automatically
             this.ipManuallySet = false;
@@ -86,8 +88,8 @@ namespace BrainfuckInterpreter
             this.instructionPointer = 0;
             this.thePointer = 0;
 
-            // Initialize call stack
-            this.callStack = new Stack<int>();
+            // Initialize loop start and ends
+            this.loopPairs = this.GetLoopPositions(codebase);
 
             // Initialize I/O
             this.inputFunction = inputFunction;
@@ -153,53 +155,6 @@ namespace BrainfuckInterpreter
             {
                 this.thePointer = value;
             }
-        }
-
-        /// <summary>
-        /// Gets the call stack.
-        /// </summary>
-        public Stack<int> CallStack
-        {
-            get
-            {
-                return this.callStack;
-            }
-        }
-        #endregion
-
-        #region -- Static methods ------------------------------------------
-        /// <summary>
-        /// Checks a brainfuck code for compile time errors.
-        /// </summary>
-        /// <param name="codebase">Brainfuck code to check.</param>
-        /// <param name="memoryRange">The memory range.</param>
-        /// <returns>Check result.</returns>
-        public static JITExecutionResult CheckCode(string codebase, int memoryRange)
-        {
-            int currentOpenBrackets = 0;
-            foreach (char t in codebase)
-            {
-                switch (t)
-                {
-                    case '[':
-                        currentOpenBrackets++;
-                        break;
-                    case ']':
-                        if (--currentOpenBrackets < 0)
-                        {
-                            return JITExecutionResult.CompileError_UnknownLoopEnd;
-                        }
-
-                        break;
-                }
-            }
-
-            if (currentOpenBrackets == 0)
-            {
-                return JITExecutionResult.Succesful;
-            }
-
-            return JITExecutionResult.CompileError_OpenLoopLeft;
         }
         #endregion
 
@@ -273,7 +228,20 @@ namespace BrainfuckInterpreter
         /// </summary>
         private void Instruction_BeginLoop()
         {
-            this.callStack.Push(this.instructionPointer);
+            if (this.Helper_Instruction_GetMemoryValue() == 0)
+            {
+                // Zero, skip the loop
+                this.instructionPointer = this.loopPairs[this.instructionPointer];
+
+                // Don't set the ipManuallySet flag, the next instruction is the instruction after
+                // the loop end anyways, so 1 has to be added.
+            }
+            else
+            {
+                // It's nonzero, execute the loop.
+                // Call stack was preprocessed, nothing left to do
+                return;
+            }
         }
 
         /// <summary>
@@ -282,18 +250,21 @@ namespace BrainfuckInterpreter
         /// <exception cref="System.InvalidOperationException">Call stack is empty.</exception>
         private void Instruction_EndLoop()
         {
-            if (this.callStack.Count < 1)
+            if (this.Helper_Instruction_GetMemoryValue() != 0)
             {
-                throw new InvalidOperationException("The beginning of the loop not found");
-            }
-            else if (this.Helper_Instruction_GetMemoryValue() != 0)
-            {
-                this.instructionPointer = this.callStack.Pop();
+                // Not zero, jump back to loop start
+                this.instructionPointer = (from d in this.loopPairs
+                                           where d.Value == this.instructionPointer
+                                           select d.Key).SingleOrDefault();
+
+                // Manually set = 1 is not added to the IP
                 this.ipManuallySet = true;
             }
             else
             {
-                this.callStack.Pop();
+                // Zero, continue execution. 
+                // Call stack was preprocessed, nothing left to do
+                return;
             }
         }
 
@@ -365,6 +336,44 @@ namespace BrainfuckInterpreter
         private void Helper_Instruction_LeftOrRight(int amount)
         {
             this.thePointer += amount;
+        }
+
+        /// <summary>
+        /// Code preprocession to find the positions for each corresponding loop start and end.
+        /// </summary>
+        /// <param name="codebase">The codebase to process.</param>
+        /// <returns>Loop start and end position pairs.</returns>
+        private Dictionary<int, int> GetLoopPositions(string codebase)
+        {
+            var dict = new Dictionary<int, int>();
+            var tmpStack = new Stack<int>();
+
+            for (int i = 0; i < codebase.Length; ++i)
+            {
+                if (codebase[i] == '[')
+                {
+                    tmpStack.Push(i);
+                }
+                else if (codebase[i] == ']')
+                {
+                    if (tmpStack.Count == 0)
+                    {
+                        throw new InvalidOperationException("Start of loop not found. Position: " + i.ToString());
+                    }
+                    else
+                    {
+                        dict.Add(tmpStack.Pop(), i);
+                    }
+                }
+            }
+            
+            if (tmpStack.Count > 0)
+            {
+                // Loop not closed
+                throw new InvalidOperationException("Loop left open. Position: " + tmpStack.Pop().ToString());
+            }
+
+            return dict;
         }
         #endregion
     }

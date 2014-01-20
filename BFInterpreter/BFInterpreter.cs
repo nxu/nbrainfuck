@@ -20,8 +20,9 @@ namespace BrainfuckInterpreter
         /// <param name="memorySize">The size of the memory.</param>
         /// <param name="inputFunction">Function to call at input.</param>
         /// <param name="outputAction">Action to do at output.</param>
-        public BFInterpreter(int memorySize, Func<int> inputFunction, Action<int> outputAction) 
-            : base(memorySize, inputFunction, outputAction)
+        /// <param name="codebase">The codebase to interpret.</param>
+        public BFInterpreter(int memorySize, Func<int> inputFunction, Action<int> outputAction, string codebase) 
+            : base(memorySize, inputFunction, outputAction, codebase)
         { 
         }
         #endregion
@@ -48,14 +49,7 @@ namespace BrainfuckInterpreter
         /// <returns>The result of the execution</returns>
         public JITExecutionResult Execute(string codebase)
         {
-            JITExecutionResult r = BFInterpretationEngine.CheckCode(codebase, this.applicationMemory.Length);
-
-            if (r != JITExecutionResult.Succesful)
-            {
-                return r;
-            }
-
-            while (this.instructionPointer < codebase.Length || this.callStack.Count > 0)
+            while (this.instructionPointer < codebase.Length)
             {
                 // For cleaner code, check worker cancellation here
                 // instead of the loop declaration
