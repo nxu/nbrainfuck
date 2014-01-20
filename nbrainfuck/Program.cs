@@ -45,15 +45,8 @@
             InitializeOutputAction();
             InitializeInputFunction();
 
-            // Check for compile errors
-            JITExecutionResult r = BFInterpretationEngine.CheckCode(codebase, memoryLimit);
-            if (r != JITExecutionResult.Succesful)
-            {
-                Error("Compile error: " + r.ToString(), 3);
-            }
-
             // Initialize interpreter
-            BFInterpreter bfi = new BFInterpreter(memoryLimit, input, output);
+            BFInterpreter bfi = new BFInterpreter(memoryLimit, input, output, codebase);
 
             // Run
             bfi.Execute(codebase);
