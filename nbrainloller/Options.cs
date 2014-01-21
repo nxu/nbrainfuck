@@ -22,7 +22,7 @@ namespace nbrainloller
         /// </value>
         [Option('d', "decode", 
             HelpText = "Decode a brainloller image to brainfuck code and print it to the output file (or stdout if none specified). ")]
-        public bool Encode { get; set; }
+        public bool Decode { get; set; }
 
         /// <summary>
         /// Gets or sets the width of the image.
@@ -42,7 +42,7 @@ namespace nbrainloller
         /// </value>
         [Option('o', "option", 
             HelpText = "The name (and path) of the output file. ")]
-        public int OutputFile { get; set; }
+        public string OutputFile { get; set; }
 
         /// <summary>
         /// Gets or sets the filename.
