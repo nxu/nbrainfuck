@@ -13,7 +13,7 @@ Components
 ###BFInterpreter
  A simple code library for interpreting and debugging standard brainfuck code. 
 ###BFIDE
-An Integrated Development Environment for coding in brainfuck language. Multiple input sources (binary / text file, direct text input), syntax highlighting output window, character table. Debugger for easier programming: step-by-step debugging, breakpoints ('#' character) and a debug window that shows the instruction pointer, The Pointer and the values of each memory cell. The current command is also highlighted in the code editor. 
+An Integrated Development Environment for coding in brainfuck language. Multiple input sources (binary / text file, direct text input), syntax highlighting, output window, character table. Debugger for easier programming: step-by-step debugging, breakpoints ('#' character) and a debug window that shows the instruction pointer, 'The Pointer' and the values of each memory cell. The current command is also highlighted in the code editor. 
 ###nbrainfuck 
 A lightweight brainfuck interpreter.
 
