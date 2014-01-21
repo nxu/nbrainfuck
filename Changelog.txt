@@ -1,4 +1,7 @@
-nXu    20.01.2014    BugFix:     '[' did not skip the loop when the cell under the pointer was 0 (Issue #1)
-                     -Feature:   Due to code changes (preprocessing code to set loop start-end pairs),
-					             call stack is no longer in use so it has been removed from the code
-								 and from the GUI as well.
+nXu    20.01.2014    BFInterpreter    BugFix:     '[' did not skip the loop when the cell under the pointer was 0 (Issue #1)
+                                      -Feature:   Due to code changes (preprocessing code to set loop start-end pairs),
+					                              call stack is no longer in use so it has been removed from the code
+								                  and from the GUI as well.
+
+nXu    21.01.2014    nbrainloller     +Feature:   Basic implementation. Supports brainfuck encoding and brainloller decoding. 
+												  Support for any bitmap input and PNG output.
