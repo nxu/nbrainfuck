@@ -20,7 +20,7 @@ A leightweigh brainfuck interpreter.
 Working on
 ----------
 ###nbrainloller 
-A simple yet powerful brainfuck<->brainloller converter. Supports multiple image formats. Integrated to BFIDE (importing brainfuck code from and exporting it to image files).
+A simple yet powerful brainfuck↔brainloller converter. Supports multiple image formats. Integrated to BFIDE (importing brainfuck code from and exporting it to image files).
 
 To do
 ----------
