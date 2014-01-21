@@ -19,11 +19,6 @@ A lightweight brainfuck interpreter.
 ###nbrainloller 
 A simple yet powerful brainfuck↔brainloller converter. Supports multiple image formats. Integrated to BFIDE (importing brainfuck code from and exporting it to image files).
 
-Working on
-----------
-###nbrainloller - BFIDE integration
-Integrated brainloller export and import of brainfuck source codes.
-
 To do
 ----------
 ###bfcompiler
