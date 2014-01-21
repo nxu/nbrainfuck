@@ -1,0 +1,6 @@
+<GlobalSettings>
+  <CollectionProperty Name="RecognizedWords">
+    <Value>Brainfuck</Value>
+    <Value>brainfuck</Value>
+  </CollectionProperty>
+</GlobalSettings>

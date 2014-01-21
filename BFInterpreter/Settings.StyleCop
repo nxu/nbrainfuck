@@ -1,0 +1,8 @@
+<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="RecognizedWords">
+      <Value>brainfuck</Value>
+      <Value>Brainfuck</Value>
+    </CollectionProperty>
+  </GlobalSettings>
+</StyleCopSettings>
