@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine">
+      <HintPath>..\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=4.2.0.8783, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -100,7 +103,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="bfsd.xshd" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -129,6 +131,10 @@
     <ProjectReference Include="..\BFInterpreter\BFInterpreter.csproj">
       <Project>{FB65DE0C-7E12-42A5-B2D4-188860BEBAB8}</Project>
       <Name>BFInterpreter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nbrainloller\nbrainloller.csproj">
+      <Project>{213a4d7a-18e3-466a-9149-73fe82f20032}</Project>
+      <Name>nbrainloller</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿namespace BFIDE
 {
     using System;
+    using System.Diagnostics;
     using System.IO;
     using System.Windows;
     using System.Xml;
@@ -320,6 +321,93 @@
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        /// <summary>
+        /// Handles the Click event of the Import control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void Import_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Bitmap files (*.bmp, *.png)|*.bmp;*.png";
+            ofd.ShowDialog();
+
+            if (ofd.FileName != null && ofd.FileName != string.Empty)
+            {
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = "nbrainloller.exe";
+                psi.Arguments = string.Format("-d {0}", ofd.FileName);
+                psi.UseShellExecute = false;
+                psi.RedirectStandardOutput = true;
+                psi.CreateNoWindow = true;
+
+                // Encode
+                p.StartInfo = psi;
+                p.Start();
+                this.OutputBox.Text = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+
+                if (p.ExitCode > 0)
+                {
+                    MessageBox.Show("There has been az error while decoding the image to brainfuck code. See the output box for details",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                {
+                    this.BEditor.Text = this.OutputBox.Text;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the Export control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
+        private void Export_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.currentFileName == string.Empty)
+            {
+                MessageBox.Show("You must save the code first.", "Exporting to brainloller.", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Portable Network Graphics (*.png)|*.png";
+            sfd.ShowDialog();
+            if (sfd.SafeFileName != null && sfd.SafeFileName != string.Empty)
+            {
+                int width = 0;
+                width = nbrainloller.Program.CleanCode(this.BEditor.Text).Length;
+                width = (int)Math.Sqrt(width);
+
+                Process p = new Process();
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = "nbrainloller.exe";
+                psi.Arguments = string.Format("-w {0} -o {1} {2}", width, sfd.FileName, this.currentFileName);
+                psi.UseShellExecute = false;
+                psi.RedirectStandardOutput = true;
+                psi.CreateNoWindow = true;
+
+                // Encode
+                p.StartInfo = psi;
+                p.Start();
+                this.OutputBox.Text = p.StandardOutput.ReadToEnd();
+                p.WaitForExit();
+                if (p.ExitCode > 0)
+                {
+                    MessageBox.Show("There was an error while exporting to brainloller. See the output window for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                {
+                    Process.Start(sfd.FileName);
+                }
+            }
         }
 
         /// <summary>

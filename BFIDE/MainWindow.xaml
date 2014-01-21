@@ -66,6 +66,10 @@
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Save as..." Command="SaveAs" />
+                <MenuItem Header="Export/_Import">
+                    <MenuItem Header="_Import brainloller code" Click="Import_Click"/>
+                    <MenuItem Header="_Export to brainloller image" Click="Export_Click" />
+                </MenuItem>
                 <Separator />
                 <MenuItem Header="_Quit" Click="Quit_Click">
                     <MenuItem.Icon>

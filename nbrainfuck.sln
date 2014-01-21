@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E209A578-2615-4761-BB85-7F940F154E72}"
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
+		CommandLine.dll = CommandLine.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nbrainloller", "nbrainloller\nbrainloller.csproj", "{213A4D7A-18E3-466A-9149-73FE82F20032}"

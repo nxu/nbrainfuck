@@ -298,7 +298,7 @@ namespace nbrainloller
         /// </summary>
         /// <param name="codebase">The codebase.</param>
         /// <returns>The clean code containing only brainfuck operations.</returns>
-        private static string CleanCode(string codebase)
+        public static string CleanCode(string codebase)
         {
             StringBuilder sb = new StringBuilder();
 
