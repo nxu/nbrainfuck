@@ -4,7 +4,7 @@ About nbrainfuck
 What's this?
 ----------
 
-nbrainfuck is a collection of free and open source softwares. They are created to make coding in brainfuck language easier. They are written in C# and the .NET Framework 4 has to be installed on the host computer.
+nbrainfuck is a collection of free and open source softwares. They are created to make coding in brainfuck language easier. They are written in C# therefore .NET Framework 4 has to be installed on the host computer. Most parts work with mono as well, however the GUI of the BFIDE is written in WPF which is not supported (and not planned to be supported) by mono.
 
 http://www.nxu.hu
 
