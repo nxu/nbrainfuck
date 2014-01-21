@@ -16,11 +16,13 @@ Components
 An Integrated Development Environment for coding in brainfuck language. Multiple input sources (binary / text file, direct text input), syntax highlighting, output window, character table. Debugger for easier programming: step-by-step debugging, breakpoints ('#' character) and a debug window that shows the instruction pointer, 'The Pointer' and the values of each memory cell. The current command is also highlighted in the code editor. 
 ###nbrainfuck 
 A lightweight brainfuck interpreter.
+###nbrainloller 
+A simple yet powerful brainfuck↔brainloller converter. Supports multiple image formats. Integrated to BFIDE (importing brainfuck code from and exporting it to image files).
 
 Working on
 ----------
-###nbrainloller 
-A simple yet powerful brainfuck↔brainloller converter. Supports multiple image formats. Integrated to BFIDE (importing brainfuck code from and exporting it to image files).
+###nbrainloller - BFIDE integration
+Integrated brainloller export and import of brainfuck source codes.
 
 To do
 ----------
