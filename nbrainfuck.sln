@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Changelog.txt = Changelog.txt
 		CommandLine.dll = CommandLine.dll
+		ICSharpCode.AvalonEdit.dll = ICSharpCode.AvalonEdit.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nbrainloller", "nbrainloller\nbrainloller.csproj", "{213A4D7A-18E3-466A-9149-73FE82F20032}"
